@@ -1,5 +1,5 @@
 module(
-    name = "common_utils",
+    name = "cpp_essentials",
     version = "0.1.0",
     bazel_compatibility = ["<8.0.0"],
 )
