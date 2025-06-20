@@ -1,0 +1,2 @@
+# Pin to this version of bazel otherwise the cuda toolkit doesn't work for some reason.
+USE_BAZEL_VERSION=7.2.1

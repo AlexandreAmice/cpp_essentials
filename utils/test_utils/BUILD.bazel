@@ -1,0 +1,45 @@
+load("//tools:common_utils_cc.bzl", "common_utils_cc_library", "common_utils_cc_test")
+
+package(default_visibility = ["//visibility:public"])
+
+common_utils_cc_library(
+    name = "is_dynamic_castable",
+    # testonly = 1,
+    hdrs = ["is_dynamic_castable.h"],
+    deps = [
+        "//utils:nice_type_name",
+    ],
+)
+
+common_utils_cc_test(
+    name = "is_dynamic_castable_test",
+    deps = [
+        ":is_dynamic_castable",
+    ],
+)
+
+common_utils_cc_library(
+    name = "tuple_to_gtest_testing_tuple",
+    srcs = ["tuple_to_gtest_testing_tuple.h"],
+    deps = [
+        "//utils/essential",
+        "@googletest//:gtest_main",
+    ],
+)
+
+common_utils_cc_library(
+    name = "eigen_matrix_compare",
+    hdrs = [
+        "eigen_matrix_compare.h",
+    ],
+    deps = [
+        "//utils/essential",
+    ],
+)
+
+common_utils_cc_test(
+    name = "eigen_matrix_compare_test",
+    deps = [
+        ":eigen_matrix_compare",
+    ],
+)

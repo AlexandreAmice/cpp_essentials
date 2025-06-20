@@ -1,0 +1,65 @@
+load("//tools:common_utils_cc.bzl", "common_utils_cc_library", "common_utils_cc_test", "common_utils_cuda_test")
+
+package(default_visibility = ["//visibility:public"])
+
+# A library of things that EVERYONE should want and MUST EAT.
+# Be appropriately hesitant when adding new things here.
+common_utils_cc_library(
+    name = "essential",
+    srcs = [
+        "common_utils_assert_and_throw.cc",
+    ],
+    hdrs = [
+        "common_utils_assert.h",
+        "common_utils_assertion_error.h",
+        "common_utils_copyable.h",
+        "common_utils_throw.h",
+        "eigen_types.h",
+        "never_destroyed.h",
+        "scalar_types.h",
+    ],
+    deps = [
+        "//utils/essential/fmt",
+        "@eigen",
+        "@fmt",
+    ],
+)
+
+common_utils_cc_test(
+    name = "common_utils_assert_test",
+    # srcs = ["test/common_utils_assert_test.cc"],
+    deps = [":essential"],
+)
+
+common_utils_cc_test(
+    name = "common_utils_copyable_test",
+    deps = [
+        ":essential",
+        "//utils:unused",
+    ],
+)
+
+common_utils_cc_test(
+    name = "common_utils_throw_test",
+    deps = [":essential"],
+)
+
+common_utils_cc_test(
+    name = "never_destroyed_test",
+    deps = [":essential"],
+)
+
+common_utils_cc_test(
+    name = "scalar_types_test",
+    deps = [
+        ":essential",
+    ],
+)
+
+common_utils_cuda_test(
+    name = "scalar_types_cuda_test",
+    srcs = ["test/scalar_types_test.cu"],
+    deps = [
+        ":essential",
+    ],
+)
