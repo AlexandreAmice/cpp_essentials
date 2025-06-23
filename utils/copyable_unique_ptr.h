@@ -39,8 +39,8 @@ namespace common_utils {
  `friend copyable_unique_ptr<Foo>;` appears in Foo's class declaration.
 
  <!-- Developer note: if you change or extend the definition of an acceptable
-      clone method here, be sure to consider whether common_utils::is_cloneable should
-      be changed as well. -->
+      clone method here, be sure to consider whether common_utils::is_cloneable
+ should be changed as well. -->
 
  Generally, the API is modeled as closely as possible on the C++ standard
  `std::unique_ptr` API and %copyable_unique_ptr is interoperable with
@@ -354,10 +354,10 @@ class copyable_unique_ptr : public std::unique_ptr<T> {
   // copyable_unique_ptr class so that they have the same method access as
   // the class does. That way we can use them to determine whether
   // copyable_unique_ptr can get access. That precludes using helper classes
-  // like common_utils::is_cloneable because those may have different access due to an
-  // explicit friend declaration giving copyable_unique_ptr<Foo> access to Foo's
-  // private business. The static_assert below ensures that at least one of
-  // these must return true.
+  // like common_utils::is_cloneable because those may have different access due
+  // to an explicit friend declaration giving copyable_unique_ptr<Foo> access to
+  // Foo's private business. The static_assert below ensures that at least one
+  // of these must return true.
 
   // SFINAE magic explanation. We're combining several tricks here:
   // (1) "..." as a parameter type is a last choice; an exact type match is

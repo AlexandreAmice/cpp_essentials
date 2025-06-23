@@ -67,6 +67,8 @@ def common_utils_cc_library(name, copts = [], **kwargs):
     cc_library(
         name = name,
         copts = default_copts() + include_dirs() + copts,
+        # Done so downstream libraries will include this library via angled brackets
+        include_prefix = "cpp_essentials/utils",
         **kwargs
     )
 
