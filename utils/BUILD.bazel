@@ -7,18 +7,59 @@ common_utils_cc_library(
     hdrs = ["unused.h"],
 )
 
+# A library of things that EVERYONE should want and MUST EAT.
+# Be appropriately hesitant when adding new things here.
+common_utils_cc_library(
+    name = "essential",
+    srcs = [
+        "common_utils_assert_and_throw.cc",
+    ],
+    hdrs = [
+        "common_utils_assert.h",
+        "common_utils_assertion_error.h",
+        "common_utils_copyable.h",
+        "common_utils_throw.h",
+        "eigen_types.h",
+        "never_destroyed.h",
+        "scalar_types.h",
+    ],
+    deps = [
+        ":fmt",
+        "@eigen",
+        "@fmt",
+    ],
+)
+
 common_utils_cc_library(
     name = "copyable_unique_ptr",
     hdrs = ["copyable_unique_ptr.h"],
     deps = [":is_cloneable"],
 )
 
+common_utils_cc_library(
+    name = "fmt",
+    srcs = [
+        "fmt.cc",
+        "fmt_eigen.cc",
+    ],
+    hdrs = [
+        "fmt.h",
+        "fmt_eigen.h",
+        "fmt_ostream.h",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        "@eigen",
+        "@fmt",
+    ],
+)
+
 common_utils_cc_test(
     name = "copyable_unique_ptr_test",
     deps = [
         ":copyable_unique_ptr",
+        "//utils:essential",
         "//utils:unused",
-        "//utils/essential",
         "//utils/test_utils:is_dynamic_castable",
     ],
 )
@@ -46,7 +87,7 @@ common_utils_cc_library(
         ":nice_type_name_override_header",
     ],
     deps = [
-        "//utils/essential",
+        "//utils:essential",
     ],
 )
 
@@ -68,7 +109,7 @@ common_utils_cc_test(
     deps = [
         ":nice_type_name",
         ":nice_type_name_override_header",
-        "//utils/essential",
+        "//utils:essential",
     ],
 )
 
@@ -78,7 +119,7 @@ common_utils_cc_library(
     hdrs = ["random.h"],
     deps = [
         ":copyable_unique_ptr",
-        "//utils/essential",
+        "//utils:essential",
     ],
 )
 
@@ -122,7 +163,7 @@ common_utils_cc_library(
     name = "eigen_pack_utils",
     hdrs = ["eigen_pack_utils.h"],
     deps = [
-        "//utils/essential",
+        "//utils:essential",
     ],
 )
 

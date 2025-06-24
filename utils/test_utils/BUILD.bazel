@@ -6,6 +6,7 @@ common_utils_cc_library(
     name = "is_dynamic_castable",
     # testonly = 1,
     hdrs = ["is_dynamic_castable.h"],
+    include_prefix = "cpp_essentials/utils/test_utils",
     deps = [
         "//utils:nice_type_name",
     ],
@@ -21,8 +22,9 @@ common_utils_cc_test(
 common_utils_cc_library(
     name = "tuple_to_gtest_testing_tuple",
     srcs = ["tuple_to_gtest_testing_tuple.h"],
+    include_prefix = "cpp_essentials/utils/test_utils",
     deps = [
-        "//utils/essential",
+        "//utils:essential",
         "@googletest//:gtest_main",
     ],
 )
@@ -32,8 +34,9 @@ common_utils_cc_library(
     hdrs = [
         "eigen_matrix_compare.h",
     ],
+    include_prefix = "cpp_essentials/utils/test_utils",
     deps = [
-        "//utils/essential",
+        "//utils:essential",
     ],
 )
 

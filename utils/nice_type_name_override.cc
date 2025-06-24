@@ -1,7 +1,7 @@
 #include "utils/nice_type_name_override.h"
 
-#include "utils/essential/common_utils_assert.h"
-#include "utils/essential/never_destroyed.h"
+#include "utils/common_utils_assert.h"
+#include "utils/never_destroyed.h"
 /**
  * This file is copied from Drake's common/nice_type_name_override.cc
  * implementation with appropriate modifications.

@@ -1,9 +1,9 @@
-#include "utils/essential/never_destroyed.h"
+#include "utils/never_destroyed.h"
 
 #include <random>
 #include <unordered_map>
 
-#include "utils/essential/common_utils_copyable.h"
+#include "utils/common_utils_copyable.h"
 #include <gtest/gtest.h>
 /**
  * This file is copied from Drake's drake/common/test/never_destroyed_test.cc

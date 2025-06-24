@@ -3,7 +3,7 @@
 #include <sstream>
 #include <string_view>
 
-#include "utils/fmt/fmt.h"
+#include "utils.h"
 #include <fmt/ostream.h>
 
 namespace common_utils {
@@ -14,10 +14,10 @@ namespace common_utils {
 <a href="https://fmt.dev/latest/api.html#ostream-api">fmt::streamed</a>.
 When using fmt < 9, this uses a polyfill instead.
 
-Within COMMON_UTILS, the nominal use for `fmt::streamed` is when formatting third-party
-types that provide `operator<<` support but not `fmt::formatter<T>` support.
-Once we stop using `FMT_DEPRECATED_OSTREAM=1`, compilation errors will help you
-understand where you are required to use this wrapper. */
+Within COMMON_UTILS, the nominal use for `fmt::streamed` is when formatting
+third-party types that provide `operator<<` support but not `fmt::formatter<T>`
+support. Once we stop using `FMT_DEPRECATED_OSTREAM=1`, compilation errors will
+help you understand where you are required to use this wrapper. */
 template <typename T>
 auto fmt_streamed(const T& ref) {
   return fmt::streamed(ref);
@@ -61,7 +61,8 @@ struct ostream_formatter : fmt::formatter<std::string_view> {
 #if FMT_VERSION < 90000
 namespace fmt {
 template <typename T>
-struct formatter<common_utils::internal::streamed_ref<T>> : common_utils::ostream_formatter {
+struct formatter<common_utils::internal::streamed_ref<T>>
+    : common_utils::ostream_formatter {
   template <typename FormatContext>
   auto format(common_utils::internal::streamed_ref<T> tag,
               // NOLINTNEXTLINE(runtime/references) To match fmt API.

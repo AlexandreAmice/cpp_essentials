@@ -6,7 +6,7 @@
 #include <utility>
 #include <vector>
 
-#include "utils/essential/never_destroyed.h"
+#include "utils/never_destroyed.h"
 /**
  * This file is copied from Drake's common/nice_type_name.h
  * implementation with appropriate modifications.

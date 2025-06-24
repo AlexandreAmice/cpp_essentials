@@ -4,7 +4,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "utils/essential/common_utils_copyable.h"
+#include "utils/common_utils_copyable.h"
 
 /**
  * This file is copied from Drake's drake/common/never_destroyed.h with

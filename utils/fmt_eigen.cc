@@ -1,7 +1,7 @@
 // TODO(jwnimmer-tri) Write our own formatting logic instead of using Eigen IO,
 // and add customization flags for how to display the matrix data.
 #undef EIGEN_NO_IO
-#include "utils/essential/fmt/fmt_eigen.h"
+#include "utils/fmt_eigen.h"
 
 #include <limits>
 #include <sstream>

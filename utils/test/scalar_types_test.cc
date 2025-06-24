@@ -1,4 +1,4 @@
-#include "utils/essential/scalar_types.h"
+#include "utils/scalar_types.h"
 
 #include <string>
 #include <type_traits>

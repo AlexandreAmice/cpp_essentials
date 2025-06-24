@@ -5,7 +5,7 @@
 #include <limits>
 #include <string>
 
-#include "utils/essential/fmt/fmt_eigen.h"
+#include "utils/fmt_eigen.h"
 #include <Eigen/Dense>
 #include <fmt/core.h>
 #include <gtest/gtest.h>

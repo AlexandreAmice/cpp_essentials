@@ -2,7 +2,7 @@
 
 #include <type_traits>
 
-#include "utils/essential/common_utils_assert.h"
+#include "utils/common_utils_assert.h"
 
 /**
  * This file is copied from Drake's drake/common/drake_throw.h with

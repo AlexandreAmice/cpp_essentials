@@ -1,8 +1,8 @@
 // This file contains the implementation of both common_utils_assert and
 // common_utils_throw.
 /* clang-format off to disable clang-format-includes */
-#include "utils/essential/common_utils_assert.h"
-#include "utils/essential/common_utils_throw.h"
+#include "utils/common_utils_assert.h"
+#include "utils/common_utils_throw.h"
 /* clang-format on */
 
 #include <atomic>
@@ -12,8 +12,8 @@
 #include <stdexcept>
 #include <string>
 
-#include "utils/essential/common_utils_assertion_error.h"
-#include "utils/essential/never_destroyed.h"
+#include "utils/common_utils_assertion_error.h"
+#include "utils/never_destroyed.h"
 
 /**
  * This file is copied from Drake's drake/common/drake_assert_and_throw.cc with

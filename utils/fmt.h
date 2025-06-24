@@ -51,13 +51,15 @@ std::string fmt_debug_string(std::string_view x);
 
 namespace internal::formatter_as {
 
-/* The COMMON_UTILS_FORMATTER_AS macro specializes this for it's format_as types.
-This struct is a functor that performs a conversion. See below for details.
+/* The COMMON_UTILS_FORMATTER_AS macro specializes this for it's format_as
+types. This struct is a functor that performs a conversion. See below for
+details.
 @tparam T is the TYPE to be formatted. */
 template <typename T>
 struct Converter;
 
-/* Provides convenient type shortcuts for the TYPE in COMMON_UTILS_FORMATTER_AS. */
+/* Provides convenient type shortcuts for the TYPE in COMMON_UTILS_FORMATTER_AS.
+ */
 template <typename T>
 struct Traits {
   /* The type being formatted. */
@@ -128,8 +130,8 @@ template arguments, note that macros will fight with commas so you should use
 `typename... Ts` instead of writing them all out.
 
 @param NAMESPACE The namespace that encloses the `TYPE` being formatted. Cannot
-be empty. For nested namespaces, use intemediate colons, e.g., `%common_utils::common`.
-Do not place _leading_ colons on the `NAMESPACE`.
+be empty. For nested namespaces, use intemediate colons, e.g.,
+`%common_utils::common`. Do not place _leading_ colons on the `NAMESPACE`.
 
 @param TYPE The class name (or struct name, or enum name, etc.) being formatted.
 Do not place _leading_ double-colons on the `TYPE`. If the type is templated,
@@ -146,9 +148,9 @@ refer to the given `ARG` name which will be of type `const TYPE& ARG`.
 `format_as` customization point with this feature built-in. If so, then we can
 update this macro to use that spelling, and eventually deprecate the macro once
 Drake drops support for earlier version of fmt. */
-#define COMMON_UTILS_FORMATTER_AS(TEMPLATE_ARGS, NAMESPACE, TYPE, ARG, EXPR)          \
+#define COMMON_UTILS_FORMATTER_AS(TEMPLATE_ARGS, NAMESPACE, TYPE, ARG, EXPR)   \
   /* Specializes the Converter<> class template for our TYPE. */               \
-  namespace common_utils::internal::formatter_as {                                    \
+  namespace common_utils::internal::formatter_as {                             \
   template <TEMPLATE_ARGS>                                                     \
   struct Converter<NAMESPACE::TYPE> {                                          \
     using InputType = NAMESPACE::TYPE;                                         \
@@ -165,7 +167,7 @@ Drake drops support for earlier version of fmt. */
     /* Shadow our base class member function template of the same name. */     \
     template <typename FormatContext>                                          \
     auto format(const typename MyTraits::InputType& x,                         \
-                FormatContext& ctx) COMMON_UTILS_FMT8_CONST {                         \
+                FormatContext& ctx) COMMON_UTILS_FMT8_CONST {                  \
       /* Call the base class member function after laundering the object   */  \
       /* through the user's provided format_as function. Older versions of */  \
       /* fmt have const-correctness bugs, which we can fix with some good  */  \
@@ -175,11 +177,11 @@ Drake drops support for earlier version of fmt. */
       return const_cast<Base*>(self)->format(MyTraits::Functor::call(x), ctx); \
     }                                                                          \
   };                                                                           \
-  } /* namespace common_utils::internal::formatter_as */                              \
+  } /* namespace common_utils::internal::formatter_as */                       \
                                                                                \
   /* Specializes the fmt::formatter<> class template for TYPE. */              \
   namespace fmt {                                                              \
   template <TEMPLATE_ARGS>                                                     \
   struct formatter<NAMESPACE::TYPE>                                            \
-      : common_utils::internal::formatter_as::Formatter<NAMESPACE::TYPE> {};          \
+      : common_utils::internal::formatter_as::Formatter<NAMESPACE::TYPE> {};   \
   } /* namespace fmt */

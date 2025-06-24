@@ -15,9 +15,9 @@
 static_assert(EIGEN_VERSION_AT_LEAST(3, 3, 5),
               "CommonUtils requires Eigen >= v3.3.5.");
 
-#include "utils/essential/common_utils_assert.h"
-#include "utils/essential/common_utils_copyable.h"
-#include "utils/essential/fmt/fmt_eigen.h"
+#include "utils/common_utils_assert.h"
+#include "utils/common_utils_copyable.h"
+#include "utils_eigen.h"
 
 namespace common_utils {
 

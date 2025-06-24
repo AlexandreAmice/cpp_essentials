@@ -3,7 +3,7 @@
 #include <string>
 #include <string_view>
 
-#include "utils/essential/fmt/fmt.h"
+#include "utils/fmt.h"
 #include <Eigen/Core>
 
 namespace common_utils {
@@ -31,9 +31,9 @@ std::string FormatEigenMatrix(
 /** When passing an Eigen::Matrix to fmt, use this wrapper function to instruct
 fmt to use CommonUtils's custom formatter for Eigen types.
 
-Within CommonUtils, when formatting an Eigen matrix into a string you must wrap the
-Eigen object as `fmt_eigen(M)`. This holds true whether it be for logging, error
-messages, debugging, or etc.
+Within CommonUtils, when formatting an Eigen matrix into a string you must wrap
+the Eigen object as `fmt_eigen(M)`. This holds true whether it be for logging,
+error messages, debugging, or etc.
 
 For example:
 @code
@@ -47,10 +47,10 @@ temporary object, i.e., in a fmt argument list or a logging statement argument
 list. Never store it as a local variable, member field, etc.
 
 @note To ensure floating-point data is formatted without losing any digits,
-CommonUtils's code is compiled using -DEIGEN_NO_IO, which enforces that nothing within
-CommonUtils is allowed to use Eigen's `operator<<`. Downstream code that calls into
-CommonUtils is not required to use that option; it is only enforced by CommonUtils's build
-system, not by CommonUtils's headers. */
+CommonUtils's code is compiled using -DEIGEN_NO_IO, which enforces that nothing
+within CommonUtils is allowed to use Eigen's `operator<<`. Downstream code that
+calls into CommonUtils is not required to use that option; it is only enforced
+by CommonUtils's build system, not by CommonUtils's headers. */
 template <typename Derived>
 internal::fmt_eigen_ref<typename Derived::Scalar> fmt_eigen(
     const Eigen::MatrixBase<Derived>& matrix) {
@@ -68,7 +68,8 @@ struct formatter<common_utils::internal::fmt_eigen_ref<Scalar>>
   template <typename FormatContext>
   auto format(const common_utils::internal::fmt_eigen_ref<Scalar>& ref,
               // NOLINTNEXTLINE(runtime/references) To match fmt API.
-              FormatContext& ctx) COMMON_UTILS_FMT8_CONST -> decltype(ctx.out()) {
+              FormatContext& ctx)
+      COMMON_UTILS_FMT8_CONST -> decltype(ctx.out()) {
     const auto& matrix = ref.matrix;
     if constexpr (std::is_same_v<Scalar, double> ||
                   std::is_same_v<Scalar, float>) {

@@ -4,7 +4,7 @@
 #include <random>
 
 #include "utils/copyable_unique_ptr.h"
-#include "utils/essential/common_utils_copyable.h"
+#include "utils/common_utils_copyable.h"
 #include <Eigen/Core>
 
 /**

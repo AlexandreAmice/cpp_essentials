@@ -18,8 +18,8 @@ with appropriate modifications.
 #include <memory>
 #include <utility>
 
-#include "utils/essential/common_utils_assert.h"
-#include "utils/essential/fmt/fmt.h"
+#include "utils/common_utils_assert.h"
+#include "utils/fmt.h"
 
 namespace common_utils {
 

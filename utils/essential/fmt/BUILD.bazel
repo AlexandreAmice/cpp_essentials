@@ -1,19 +1,19 @@
-load("//tools:common_utils_cc.bzl", "common_utils_cc_library")
+# load("//tools:common_utils_cc.bzl", "common_utils_cc_library")
 
-common_utils_cc_library(
-    name = "fmt",
-    srcs = [
-        "fmt.cc",
-        "fmt_eigen.cc",
-    ],
-    hdrs = [
-        "fmt.h",
-        "fmt_eigen.h",
-        "fmt_ostream.h",
-    ],
-    visibility = ["//visibility:public"],
-    deps = [
-        "@eigen",
-        "@fmt",
-    ],
-)
+# common_utils_cc_library(
+#     name = "fmt",
+#     srcs = [
+#         "fmt.cc",
+#         "fmt_eigen.cc",
+#     ],
+#     hdrs = [
+#         "fmt.h",
+#         "fmt_eigen.h",
+#         "fmt_ostream.h",
+#     ],
+#     visibility = ["//visibility:public"],
+#     deps = [
+#         "@eigen",
+#         "@fmt",
+#     ],
+# )

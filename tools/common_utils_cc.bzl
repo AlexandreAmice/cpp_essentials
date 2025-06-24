@@ -64,11 +64,12 @@ def default_cuda_test_deps():
     return default_cuda_deps() + default_test_deps()
 
 def common_utils_cc_library(name, copts = [], **kwargs):
+    include_prefix = kwargs.pop("include_prefix", "cpp_essentials/utils")
     cc_library(
         name = name,
         copts = default_copts() + include_dirs() + copts,
         # Done so downstream libraries will include this library via angled brackets
-        include_prefix = "cpp_essentials/utils",
+        include_prefix = include_prefix,
         **kwargs
     )
 

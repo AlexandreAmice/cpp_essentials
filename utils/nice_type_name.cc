@@ -16,7 +16,7 @@ copy of the License at http://www.apache.org/licenses/LICENSE-2.0. */
 #include <regex>
 #include <string>
 
-#include "utils/essential/never_destroyed.h"
+#include "utils/never_destroyed.h"
 #include "utils/nice_type_name_override.h"
 
 using std::string;

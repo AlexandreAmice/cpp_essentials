@@ -1,4 +1,4 @@
-#include "utils/essential/common_utils_throw.h"
+#include "utils/common_utils_throw.h"
 
 #include <stdexcept>
 

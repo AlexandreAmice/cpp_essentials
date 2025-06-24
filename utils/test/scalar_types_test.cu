@@ -1,7 +1,7 @@
 #include <string>
 #include <type_traits>
 
-#include "utils/essential/scalar_types.h"
+#include "utils/scalar_types.h"
 #include <gtest/gtest.h>
 
 namespace common_utils {
