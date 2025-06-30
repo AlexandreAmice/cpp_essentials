@@ -79,40 +79,41 @@ struct ClassInstantiator {
 
 }  // namespace detail
 
-#define INSTANTIATE_FOR_SUPPORTED_SCALARS(template_name)          \
-  namespace {                                                     \
-  struct InstantiationHelper_##template_name {                    \
-    InstantiationHelper_##template_name() {                       \
+#define INSTANTIATE_FOR_SUPPORTED_SCALARS(template_name)                 \
+  namespace {                                                            \
+  struct InstantiationHelper_##template_name {                           \
+    InstantiationHelper_##template_name() {                              \
       common_utils::detail::instantiate_for_types<template_name>(        \
           common_utils::SupportedScalarTypes{},                          \
-          std::make_index_sequence<                               \
+          std::make_index_sequence<                                      \
               std::tuple_size_v<common_utils::SupportedScalarTypes>>{}); \
-    }                                                             \
-  };                                                              \
-  static InstantiationHelper_##template_name                      \
-      instantiation_helper__##template_name;                      \
+    }                                                                    \
+  };                                                                     \
+  static InstantiationHelper_##template_name                             \
+      instantiation_helper__##template_name;                             \
   }
 
 // For functions that need explicit instantiation
 // This uses a dynamic approach to generate all needed instantiations
-#define INSTANTIATE_FUNCTION_FOR_SCALAR_TYPES(func_template)                 \
-  namespace {                                                                \
-  template <typename T>                                                      \
-  using func_template_type = decltype(func_template<T>);                     \
-  struct func_template##_instantiator {                                      \
-    template <typename... Types>                                             \
-    static void ForEach() {                                                  \
-      /* This will expand to separate instantiations for each type */        \
-      using expander = int[];                                                \
-      (void)expander{0, (void(func_template<Types>), 0)...};                 \
-    }                                                                        \
-  };                                                                         \
-  /* Force instantiation at global scope */                                  \
-  static const auto func_template##_instantiations = []() {                  \
-    common_utils::detail::ExplicitInstantiationHelper<                              \
-        common_utils::SupportedScalarTypes, func_template##_instantiator>::Apply(); \
-    return 0;                                                                \
-  }();                                                                       \
+#define INSTANTIATE_FUNCTION_FOR_SCALAR_TYPES(func_template)          \
+  namespace {                                                         \
+  template <typename T>                                               \
+  using func_template_type = decltype(func_template<T>);              \
+  struct func_template##_instantiator {                               \
+    template <typename... Types>                                      \
+    static void ForEach() {                                           \
+      /* This will expand to separate instantiations for each type */ \
+      using expander = int[];                                         \
+      (void)expander{0, (void(func_template<Types>), 0)...};          \
+    }                                                                 \
+  };                                                                  \
+  /* Force instantiation at global scope */                           \
+  static const auto func_template##_instantiations = []() {           \
+    common_utils::detail::ExplicitInstantiationHelper<                \
+        common_utils::SupportedScalarTypes,                           \
+        func_template##_instantiator>::Apply();                       \
+    return 0;                                                         \
+  }();                                                                \
   }
 
 // Stubs that might work for header files.

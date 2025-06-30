@@ -3,8 +3,8 @@
 #include <memory>
 #include <random>
 
-#include "utils/copyable_unique_ptr.h"
 #include "utils/common_utils_copyable.h"
+#include "utils/copyable_unique_ptr.h"
 #include <Eigen/Core>
 
 /**
@@ -13,10 +13,10 @@
  */
 
 namespace common_utils {
-/// Defines CommonUtils's canonical implementation of the UniformRandomBitGenerator
-/// C++ concept (as well as a few conventional extras beyond the concept, e.g.,
-/// seeds).  This uses the 32-bit Mersenne Twister mt19937 by Matsumoto and
-/// Nishimura, 1998.  For more information, see
+/// Defines CommonUtils's canonical implementation of the
+/// UniformRandomBitGenerator C++ concept (as well as a few conventional extras
+/// beyond the concept, e.g., seeds).  This uses the 32-bit Mersenne Twister
+/// mt19937 by Matsumoto and Nishimura, 1998.  For more information, see
 /// https://en.cppreference.com/w/cpp/numeric/random/mersenne_twister_engine
 class RandomGenerator {
  public:

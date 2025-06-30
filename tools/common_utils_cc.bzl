@@ -80,10 +80,15 @@ def common_utils_cc_binary(name, copts = [], **kwargs):
         **kwargs
     )
 
-def common_utils_cc_test(name, copts = [], deps = [], **kwargs):
+def common_utils_cc_test(name, copts = [], deps = [], srcs = [], size = None, **kwargs):
+    if size == None:
+        size = "small"
+    if not srcs:
+        srcs = ["test/%s.cc" % name]
     cc_test(
         name = name,
-        srcs = ["test/%s.cc" % name],
+        srcs = srcs,
+        size = size,
         copts = default_copts() + include_dirs() + copts,
         deps = default_test_deps() + deps,
         **kwargs

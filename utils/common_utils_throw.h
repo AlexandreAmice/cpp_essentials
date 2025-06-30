@@ -35,18 +35,20 @@ namespace internal {
 /// users, we should err on the side of extra detail about the failure. The
 /// meaning of "foo" isolated within error message text does not make it
 /// clear that a null pointer is the proximate cause of the problem.
-#define COMMON_UTILS_THROW_UNLESS(condition)                                         \
-  do {                                                                        \
-    typedef ::common_utils::assert::ConditionTraits<                                 \
-        typename std::remove_cv_t<decltype(condition)>>                       \
-        Trait;                                                                \
-    static_assert(Trait::is_valid, "Condition should be bool-convertible.");  \
-    static_assert(                                                            \
-        !std::is_pointer_v<decltype(condition)>,                              \
-        "When using COMMON_UTILS_THROW_UNLESS on a raw pointer, always write out "   \
-        "COMMON_UTILS_THROW_UNLESS(foo != nullptr), do not write COMMON_UTILS_THROW_UNLESS" \
-        "(foo) and rely on implicit pointer-to-bool conversion.");            \
-    if (!Trait::Evaluate(condition)) {                                        \
-      ::common_utils::internal::Throw(#condition, __func__, __FILE__, __LINE__);     \
-    }                                                                         \
+#define COMMON_UTILS_THROW_UNLESS(condition)                                 \
+  do {                                                                       \
+    typedef ::common_utils::assert::ConditionTraits<                         \
+        typename std::remove_cv_t<decltype(condition)>>                      \
+        Trait;                                                               \
+    static_assert(Trait::is_valid, "Condition should be bool-convertible."); \
+    static_assert(!std::is_pointer_v<decltype(condition)>,                   \
+                  "When using COMMON_UTILS_THROW_UNLESS on a raw pointer, "  \
+                  "always write out "                                        \
+                  "COMMON_UTILS_THROW_UNLESS(foo != nullptr), do not write " \
+                  "COMMON_UTILS_THROW_UNLESS"                                \
+                  "(foo) and rely on implicit pointer-to-bool conversion."); \
+    if (!Trait::Evaluate(condition)) {                                       \
+      ::common_utils::internal::Throw(#condition, __func__, __FILE__,        \
+                                      __LINE__);                             \
+    }                                                                        \
   } while (0)

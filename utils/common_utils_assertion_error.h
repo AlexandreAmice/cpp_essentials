@@ -10,8 +10,8 @@
 namespace common_utils {
 namespace internal {
 
-// This is what COMMON_UTILS_ASSERT and COMMON_UTILS_DEMAND throw when our assertions are
-// configured to throw.
+// This is what COMMON_UTILS_ASSERT and COMMON_UTILS_DEMAND throw when our
+// assertions are configured to throw.
 class assertion_error : public std::runtime_error {
  public:
   explicit assertion_error(const std::string& what_arg)

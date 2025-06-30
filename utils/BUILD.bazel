@@ -1,4 +1,5 @@
 load("//tools:common_utils_cc.bzl", "common_utils_cc_library", "common_utils_cc_test")
+load("//tools:lint.bzl", "add_lint_tests")
 
 package(default_visibility = ["//visibility:public"])
 
@@ -13,6 +14,7 @@ common_utils_cc_library(
     name = "essential",
     srcs = [
         "common_utils_assert_and_throw.cc",
+        "text_logging.cc",
     ],
     hdrs = [
         "common_utils_assert.h",
@@ -22,11 +24,14 @@ common_utils_cc_library(
         "eigen_types.h",
         "never_destroyed.h",
         "scalar_types.h",
+        "text_logging.h",
     ],
     deps = [
         ":fmt",
         "@eigen",
         "@fmt",
+        # "@spdlog",
+        "@spdlog",
     ],
 )
 
@@ -249,3 +254,72 @@ common_utils_cc_test(
         ":sorted_pair",
     ],
 )
+
+# Messily test sdplog integration. We don't use Drake's fancy configurable HAVE_SPDLOG macro, so most of these tests do not get run. I leave them in here in case we want to make spdlog configurable later.
+# This version of text_logging_test is compiled with HAVE_SPDLOG enabled,
+common_utils_cc_test(
+    name = "text_logging_test",
+    defines = [
+        "TEXT_LOGGING_TEST_SPDLOG=1",
+    ],
+    # use_default_main = False,
+    deps = [
+        ":essential",
+    ],
+)
+
+# # Likewise (to the above test) for the ostream variation.
+# common_utils_cc_test(
+#     name = "text_logging_ostream_test",
+#     defines = [
+#         "TEXT_LOGGING_TEST_SPDLOG=1",
+#     ],
+#     # use_default_main = False,
+#     deps = [
+#         ":essential",
+#     ],
+# )
+
+# # This version of text_logging_test re-compiles all source files without
+# # defining HAVE_SPDLOG, to ensure that the no-op stubs behave as desired.
+# common_utils_cc_test(
+#     name = "text_logging_no_spdlog_test",
+#     srcs = [
+#         "common_utils_copyable.h",
+#         "fmt.h",
+#         "never_destroyed.h",
+#         "test/text_logging_test.cc",
+#         "text_logging.cc",
+#         "text_logging.h",
+#     ],
+#     defines = [
+#         "TEXT_LOGGING_TEST_SPDLOG=0",
+#     ],
+#     # use_default_main = False,
+#     deps = [
+#         "@fmt",
+#     ],
+# )
+
+# # Likewise (to the above test) for the ostream variation.
+# common_utils_cc_test(
+#     name = "text_logging_ostream_no_spdlog_test",
+#     srcs = [
+#         "common_utils_copyable.h",
+#         "fmt.h",
+#         "fmt_ostream.h",
+#         "never_destroyed.h",
+#         "test/text_logging_ostream_test.cc",
+#         "text_logging.cc",
+#         "text_logging.h",
+#     ],
+#     defines = [
+#         "TEXT_LOGGING_TEST_SPDLOG=0",
+#     ],
+#     # use_default_main = False,
+#     deps = [
+#         "@fmt",
+#     ],
+# )
+
+add_lint_tests()

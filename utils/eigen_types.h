@@ -255,7 +255,8 @@ auto EigenMapView(Container&& c) {
 ///
 /// // We can rewrite the above function into the following using EigenPtr.
 /// void foo(EigenPtr<Eigen::MatrixXd> M) {
-///    COMMON_UTILS_THROW_UNLESS(M != nullptr);  // If you want a Release-build check.
+///    COMMON_UTILS_THROW_UNLESS(M != nullptr);  // If you want a Release-build
+///    check.
 ///    (*M)(0, 0) = 0;
 /// }
 /// // Note that, call sites should be changed to:

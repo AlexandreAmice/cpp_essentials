@@ -6,6 +6,10 @@
 #include <fmt/ostream.h>
 
 namespace common_utils {
+/**
+ * This file is copied from Drake's drake/common/fmt_ostream.h with appropriate
+ * modifications.
+ */
 
 // Compatibility shim for fmt::streamed.
 #if FMT_VERSION >= 90000 || defined(COMMON_UTILS_DOXYGEN_CXX)
