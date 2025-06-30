@@ -14,12 +14,6 @@ bazel_dep(name = "buildifier_prebuilt", version = "8.0.0", dev_dependency = True
 
 bazel_dep(name = "fmt", version = "11.0.2.bcr.1", repo_name = "fmt")
 bazel_dep(name = "spdlog", version = "1.15.0.bcr.4", repo_name = "spdlog")  # noqa
-# spdlog_repository = use_repo_rule(
-#     "@common_utils//tools/workspace/spdlog:repository.bzl",
-#     "spdlog_repository",
-# )
-# spdlog_repository(name = "pkgconfig_spdlog")
-# use_repo(spdlog_repository, "spdlog")
 
 # python
 bazel_dep(name = "rules_python", version = "1.1.0")  #

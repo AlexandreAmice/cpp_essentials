@@ -1,0 +1,125 @@
+load("@pip//:requirements.bzl", "requirement")
+load("@rules_python//python:defs.bzl", "py_binary", "py_library")
+load("@rules_python//python:packaging.bzl", "py_package")
+load("//tools:common_utils_cc.bzl", "common_utils_cc_library")
+load("//tools:common_utils_py.bzl", "common_utils_py_test", "common_utils_py_wheel", "common_utils_pybind_extension")
+load("//tools:lint.bzl", "add_lint_tests")
+
+common_utils_pybind_extension(
+    name = "cpp_essentials",
+    srcs = [
+        "bindings.cc",
+        "utils_bindings.cc",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":copyable_unique_ptr_holder_type",
+        "//utils:essential",
+        "//utils:random",
+    ],
+)
+
+common_utils_cc_library(
+    name = "copyable_unique_ptr_holder_type",
+    hdrs = ["copyable_unique_ptr_holder_type.h"],
+    include_prefix = "cpp_essentials/pybind",
+    visibility = ["//visibility:public"],
+    deps = ["//utils:copyable_unique_ptr"],
+)
+
+py_library(
+    name = "cpp_essentials_lib",
+    data = [":cpp_essentials.so"],  # This should now correctly point to the output of the pybind_extension
+    imports = ["."],  # This makes the .so available at the root for the genrule to pick up
+    visibility = ["//visibility:public"],
+)
+
+py_binary(
+    name = "generate_stubs",
+    srcs = ["generate_stubs.py"],
+    main = "generate_stubs.py",
+    deps = [
+        requirement("mypy"),
+    ],
+)
+
+genrule(
+    name = "copy_init_and_generate_stubs",
+    srcs = [
+        "__init__.py",
+        "py.typed",
+        ":cpp_essentials",  # Depends on the .so file from pybind_extension
+        ":generate_stubs",
+    ],
+    outs = [
+        "cpp_essentials/__init__.py",
+        "cpp_essentials/py.typed",
+        "cpp_essentials/cpp_essentials.so",
+        "cpp_essentials/cpp_essentials.pyi",
+    ],
+    cmd = """
+        # Create directory
+        OUT_PKG_DIR="$(RULEDIR)/cpp_essentials"
+        mkdir -p "$$OUT_PKG_DIR"
+
+        # Copy required files
+        cp $(location __init__.py) $(location py.typed) \
+           $(location :cpp_essentials) $$OUT_PKG_DIR
+
+        # Run stub generation with Bazel's Python
+        # Extract just the first path from the locations expansion
+        STUBS_SCRIPT="$$(echo $(locations :generate_stubs) | cut -d' ' -f1)"
+        $$STUBS_SCRIPT "$$OUT_PKG_DIR"
+    """,
+)
+
+py_library(
+    name = "cpp_essentials_generated_lib",
+    data = [":copy_init_and_generate_stubs"],  # Include the data files as well
+    imports = [".."],  # Set the import path to find the cpp_essentials directory
+    visibility = ["//visibility:public"],
+)
+
+py_library(
+    name = "cpp_essentials_generated_lib_internal",
+    srcs = [
+        "__init__.py",
+    ],
+    data = [
+        "py.typed",
+        ":cpp_essentials",
+    ],
+    imports = [".."],
+    visibility = ["//visibility:public"],
+)
+
+py_package(
+    name = "cpp_essentials_package",
+    deps = [":cpp_essentials_generated_lib"],
+)
+
+common_utils_py_wheel(
+    name = "cpp_essentials_wheel",
+    distribution = "common_utils",
+    strip_path_prefixes = [
+        "pybind",  # Adjust this path to match your project structure
+    ],
+    version = "0.1",
+    deps = [":cpp_essentials_package"],  # Use the py_package instead of cpp_essentials_generated_lib
+)
+
+###########################
+## Tests
+###########################
+
+common_utils_py_test(
+    name = "utils_test",
+    srcs = ["test/utils_test.py"],
+    imports = ["."],
+    main = "test/utils_test.py",
+    deps = [
+        ":cpp_essentials_lib",
+    ],
+)
+
+add_lint_tests()
