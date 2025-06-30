@@ -17,7 +17,7 @@ static_assert(EIGEN_VERSION_AT_LEAST(3, 3, 5),
 
 #include "utils/common_utils_assert.h"
 #include "utils/common_utils_copyable.h"
-#include "utils_eigen.h"
+#include "utils/fmt_eigen.h"
 
 namespace common_utils {
 
@@ -168,10 +168,10 @@ struct is_eigen_type : std::is_base_of<Eigen::EigenBase<Derived>, Derived> {};
 /*
  * Determines if an EigenBase<> has a specific scalar type.
  */
-template <typename Derived, typename T>
+template <typename Derived, typename Scalar>
 struct is_eigen_scalar_same
     : std::bool_constant<is_eigen_type<Derived>::value &&
-                         std::is_same_v<typename Derived::T, T>> {};
+                         std::is_same_v<typename Derived::Scalar, Scalar>> {};
 
 /*
  * Determines if an EigenBase<> type is a compile-time (column) vector.

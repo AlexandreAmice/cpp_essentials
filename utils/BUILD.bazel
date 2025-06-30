@@ -34,6 +34,7 @@ common_utils_cc_library(
         "@spdlog",
     ],
 )
+# Essentials are tested at the end of the file due to the complexity of testing the logging.
 
 common_utils_cc_library(
     name = "copyable_unique_ptr",
@@ -252,6 +253,24 @@ common_utils_cc_test(
     name = "sorted_pair_test",
     deps = [
         ":sorted_pair",
+    ],
+)
+
+common_utils_cc_test(
+    name = "essential_test",
+    srcs = [
+        "test/common_utils_assert_test.cc",
+        "test/common_utils_copyable_test.cc",
+        "test/common_utils_throw_test.cc",
+        "test/eigen_types_test.cc",
+        "test/never_destroyed_test.cc",
+        # "test/scalar_types_test.cc", TODO(Alexandre.Amice make this test)
+    ],
+    deps = [
+        ":essential",
+        ":unused",
+        "//utils/test_utils:expect_no_throw",
+        "//utils/test_utils:is_dynamic_castable",
     ],
 )
 
