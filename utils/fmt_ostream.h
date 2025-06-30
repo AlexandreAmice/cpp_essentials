@@ -3,7 +3,6 @@
 #include <sstream>
 #include <string_view>
 
-#include "utils.h"
 #include <fmt/ostream.h>
 
 namespace common_utils {

@@ -58,8 +58,8 @@ common_utils_cc_test(
     name = "copyable_unique_ptr_test",
     deps = [
         ":copyable_unique_ptr",
-        "//utils:essential",
-        "//utils:unused",
+        ":essential",
+        ":unused",
         "//utils/test_utils:is_dynamic_castable",
     ],
 )
@@ -87,7 +87,7 @@ common_utils_cc_library(
         ":nice_type_name_override_header",
     ],
     deps = [
-        "//utils:essential",
+        ":essential",
     ],
 )
 
@@ -107,9 +107,9 @@ common_utils_cc_library(
 common_utils_cc_test(
     name = "nice_type_name_test",
     deps = [
+        ":essential",
         ":nice_type_name",
         ":nice_type_name_override_header",
-        "//utils:essential",
     ],
 )
 
@@ -119,7 +119,7 @@ common_utils_cc_library(
     hdrs = ["random.h"],
     deps = [
         ":copyable_unique_ptr",
-        "//utils:essential",
+        ":essential",
     ],
 )
 
@@ -133,7 +133,7 @@ common_utils_cc_library(
     srcs = ["eigen_random.cc"],
     hdrs = ["eigen_random.h"],
     deps = [
-        "//utils:random",
+        ":random",
     ],
 )
 
@@ -141,7 +141,7 @@ common_utils_cc_test(
     name = "eigen_random_test",
     deps = [
         ":eigen_random",
-        "//utils:random",
+        ":random",
     ],
 )
 
@@ -163,7 +163,7 @@ common_utils_cc_library(
     name = "eigen_pack_utils",
     hdrs = ["eigen_pack_utils.h"],
     deps = [
-        "//utils:essential",
+        ":essential",
     ],
 )
 
@@ -172,5 +172,80 @@ common_utils_cc_test(
     deps = [
         ":eigen_pack_utils",
         "//utils/test_utils:eigen_matrix_compare",
+    ],
+)
+
+common_utils_cc_library(
+    name = "hash",
+    hdrs = ["hash.h"],
+    deps = [
+        ":essential",
+    ],
+)
+
+common_utils_cc_test(
+    name = "hash_test",
+    deps = [
+        ":hash",
+    ],
+)
+
+common_utils_cc_library(
+    name = "identifier",
+    srcs = ["identifier.cc"],
+    hdrs = [
+        "identifier.h",
+    ],
+    deps = [
+        ":essential",
+        ":hash",
+    ],
+)
+
+common_utils_cc_test(
+    name = "identifier_test",
+    deps = [
+        ":identifier",
+        ":sorted_pair",
+        "//utils/test_utils:expect_no_throw",
+        "//utils/test_utils:expect_throws_message",
+    ],
+)
+
+common_utils_cc_library(
+    name = "is_less_than_comparable",
+    hdrs = [
+        "is_less_than_comparable.h",
+    ],
+    deps = [
+        ":unused",
+    ],
+)
+
+common_utils_cc_test(
+    name = "is_less_than_comparable_test",
+    deps = [
+        ":is_less_than_comparable",
+    ],
+)
+
+common_utils_cc_library(
+    name = "sorted_pair",
+    srcs = [
+        "sorted_pair.cc",
+    ],
+    hdrs = [
+        "sorted_pair.h",
+    ],
+    deps = [
+        ":hash",
+        ":is_less_than_comparable",
+    ],
+)
+
+common_utils_cc_test(
+    name = "sorted_pair_test",
+    deps = [
+        ":sorted_pair",
     ],
 )

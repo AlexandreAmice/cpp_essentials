@@ -46,3 +46,25 @@ common_utils_cc_test(
         ":eigen_matrix_compare",
     ],
 )
+
+common_utils_cc_library(
+    name = "expect_throws_message",
+    hdrs = ["expect_throws_message.h"],
+    deps = ["//utils:essential"],
+)  # Not tested. See file.
+
+common_utils_cc_library(
+    name = "expect_no_throw",
+    testonly = 1,
+    hdrs = ["expect_no_throw.h"],
+    deps = [
+        "//utils:nice_type_name",
+    ],
+)
+
+common_utils_cc_test(
+    name = "expect_no_throw_test",
+    deps = [
+        ":expect_no_throw",
+    ],
+)
