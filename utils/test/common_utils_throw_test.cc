@@ -9,9 +9,14 @@
  */
 namespace {
 
-GTEST_TEST(DrakeThrowTest, BasicTest) {
+GTEST_TEST(CommonUtilsThrowTest, UnlessTest) {
   EXPECT_NO_THROW(COMMON_UTILS_THROW_UNLESS(true));
   EXPECT_THROW(COMMON_UTILS_THROW_UNLESS(false), std::runtime_error);
+}
+
+GTEST_TEST(CommonUtilsThrowTest, IfTest) {
+  EXPECT_NO_THROW(COMMON_UTILS_THROW_IF(false));
+  EXPECT_THROW(COMMON_UTILS_THROW_IF(true), std::runtime_error);
 }
 
 }  // namespace

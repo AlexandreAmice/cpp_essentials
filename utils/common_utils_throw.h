@@ -52,3 +52,19 @@ namespace internal {
                                       __LINE__);                             \
     }                                                                        \
   } while (0)
+
+/// Evaluates @p condition and iff the value is true will throw an exception
+/// with a message showing at least the condition text, function name, file,
+/// and line.
+///
+/// The condition must not be a pointer, where we'd implicitly rely on its
+/// nullness. Instead, always write out "!= nullptr" to be precise.
+///
+/// Correct: `COMMON_UTILS_THROW_IF(foo != nullptr);`
+/// Incorrect: `COMMON_UTILS_THROW_IF(foo);`
+///
+/// Because this macro is intended to provide a useful exception message to
+/// users, we should err on the side of extra detail about the failure. The
+/// meaning of "foo" isolated within error message text does not make it
+/// clear that a null pointer is the proximate cause of the problem.
+#define COMMON_UTILS_THROW_IF(condition) COMMON_UTILS_THROW_UNLESS(!(condition))

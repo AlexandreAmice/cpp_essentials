@@ -30,7 +30,6 @@ common_utils_cc_library(
         ":fmt",
         "@eigen",
         "@fmt",
-        # "@spdlog",
         "@spdlog",
     ],
 )
@@ -284,6 +283,23 @@ common_utils_cc_test(
     # use_default_main = False,
     deps = [
         ":essential",
+    ],
+)
+
+common_utils_cc_library(
+    name = "parallelism",
+    srcs = ["parallelism.cc"],
+    hdrs = ["parallelism.h"],
+    deps = [
+        ":essential",
+    ],
+)
+
+common_utils_cc_test(
+    name = "parallelism_test",
+    num_threads = 2,
+    deps = [
+        ":parallelism",
     ],
 )
 

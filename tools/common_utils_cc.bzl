@@ -3,6 +3,12 @@
 load("@rules_cc//cc:cc_test.bzl", "cc_test")
 load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library")
 load("@rules_cuda//cuda:defs.bzl", "cuda_binary", "cuda_library", "cuda_test")
+load(
+    "//tools:kwargs.bzl",
+    "incorporate_allow_network",
+    "incorporate_display",
+    "incorporate_num_threads",
+)
 
 cpp_version = "c++20"
 
@@ -80,11 +86,14 @@ def common_utils_cc_binary(name, copts = [], **kwargs):
         **kwargs
     )
 
-def common_utils_cc_test(name, copts = [], deps = [], srcs = [], size = None, **kwargs):
+def common_utils_cc_test(name, copts = [], deps = [], srcs = [], size = None, num_threads = None, **kwargs):
     if size == None:
         size = "small"
     if not srcs:
         srcs = ["test/%s.cc" % name]
+
+    kwargs = incorporate_num_threads(kwargs, num_threads = num_threads)
+
     cc_test(
         name = name,
         srcs = srcs,
