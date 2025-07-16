@@ -79,6 +79,10 @@ def common_utils_cc_library(name, copts = [], **kwargs):
         **kwargs
     )
 
+def common_utils_cc_pybind_library(name, copts = [], **kwargs):
+    include_prefix = kwargs.pop("include_prefix", "cpp_essentials/pybind")
+    common_utils_cc_library(name, copts, include_prefix = include_prefix, **kwargs)
+
 def common_utils_cc_binary(name, copts = [], **kwargs):
     cc_binary(
         name = name,

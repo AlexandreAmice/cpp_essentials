@@ -1,7 +1,7 @@
 load("@pip//:requirements.bzl", "requirement")
 load("@rules_python//python:defs.bzl", "py_binary", "py_library")
 load("@rules_python//python:packaging.bzl", "py_package")
-load("//tools:common_utils_cc.bzl", "common_utils_cc_library")
+load("//tools:common_utils_cc.bzl", "common_utils_cc_library", "common_utils_cc_pybind_library")
 load("//tools:common_utils_py.bzl", "common_utils_py_test", "common_utils_py_wheel", "common_utils_pybind_extension")
 load("//tools:lint.bzl", "add_lint_tests")
 
@@ -19,13 +19,36 @@ common_utils_pybind_extension(
     ],
 )
 
-common_utils_cc_library(
+common_utils_cc_pybind_library(
     name = "copyable_unique_ptr_holder_type",
     hdrs = ["copyable_unique_ptr_holder_type.h"],
     include_prefix = "cpp_essentials/pybind",
     visibility = ["//visibility:public"],
     deps = ["//utils:copyable_unique_ptr"],
 )
+
+common_utils_cc_pybind_library(
+    name = "pymodule_pybind",
+    hdrs = ["pymodule_pybind.h"],
+    visibility = ["//visibility:public"],
+)
+
+common_utils_cc_pybind_library(
+    name = "identifier_pybind",
+    hdrs = ["identifier_pybind.h"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//pybind:pymodule_pybind",
+    ],
+)
+
+# need to import this test.
+# drake_pybind_cc_googletest(
+#     name = "pydrake_pybind_test",
+#     cc_deps = [":test_util_pybind"],
+#     py_deps = [":module_py"],
+#     py_srcs = ["test/_pydrake_pybind_test_extra.py"],
+# )
 
 py_library(
     name = "cpp_essentials_lib",
