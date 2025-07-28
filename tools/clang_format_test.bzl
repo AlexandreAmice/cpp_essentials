@@ -57,7 +57,7 @@ exit $NEEDS_FORMATTING
 clang_format_test = rule(
     implementation = _clang_format_test_impl,
     attrs = {
-        "srcs": attr.label_list(allow_files = [".cpp", ".h", ".hpp", ".cu"], mandatory = True),
+        "srcs": attr.label_list(allow_files = [".cc", ".cpp", ".h", ".hpp", ".cu"], mandatory = True),
         "clang_format_file": attr.label(allow_single_file = True, mandatory = True),
     },
     test = True,

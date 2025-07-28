@@ -18,7 +18,16 @@ bazel_dep(name = "spdlog", version = "1.15.0.bcr.4", repo_name = "spdlog")  # no
 
 # python
 bazel_dep(name = "rules_python", version = "1.1.0")  #
-bazel_dep(name = "pybind11_bazel", version = "2.13.6")
+
+# bazel_dep(name = "pybind11_bazel", version = "2.13.6")
+bazel_dep(name = "pybind11_bazel")
+
+# Override pybind11_bazel to use specific commit
+git_override(
+    module_name = "pybind11_bazel",
+    commit = "e442ea9aa37ce10860ee720a6eda507a40782ddb",
+    remote = "https://github.com/pybind/pybind11_bazel.git",
+)
 
 python = use_extension("@rules_python//python/extensions:python.bzl", "python")
 python.toolchain(python_version = "3.12")
