@@ -46,7 +46,7 @@ void PrintFailureDetailTo(std::ostream& out, const char* condition,
 }
 }  // namespace
 
-// Declared in drake_assert.h.
+// Declared in common_utils_assert.h.
 void Abort(const char* condition, const char* func, const char* file,
            int line) {
   std::cerr << "abort: ";
@@ -55,7 +55,7 @@ void Abort(const char* condition, const char* func, const char* file,
   std::abort();
 }
 
-// Declared in drake_throw.h.
+// Declared in common_utils_throw.h.
 void Throw(const char* condition, const char* func, const char* file,
            int line) {
   std::ostringstream what;
@@ -63,7 +63,7 @@ void Throw(const char* condition, const char* func, const char* file,
   throw assertion_error(what.str().c_str());
 }
 
-// Declared in drake_assert.h.
+// Declared in common_utils_assert.h.
 void AssertionFailed(const char* condition, const char* func, const char* file,
                      int line) {
   if (AssertionConfig::singleton().assertion_failures_are_exceptions) {

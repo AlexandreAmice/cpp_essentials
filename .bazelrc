@@ -2,6 +2,10 @@ build --cxxopt='-std=c++20'
 
 test --test_output=streamed
 
+# Tell spdlog to build a library, not header-only. This *substantially* reduces
+# build size and improves build speed.
+# build --@@spdlog+//:header_only=False
+
 # Convenient flag shortcuts.
 # build --flag_alias=enable_cuda=@rules_cuda//cuda:enable
 # build --flag_alias=cuda_archs=@rules_cuda//cuda:archs

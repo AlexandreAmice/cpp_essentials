@@ -260,7 +260,6 @@ struct hash<common_utils::Identifier<Tag>> : public common_utils::DefaultHash {
 
 }  // namespace std
 
-// TODO(jwnimmer-tri) Add a real formatter and deprecate the operator<<.
 namespace fmt {
 template <typename Tag>
 struct formatter<common_utils::Identifier<Tag>>
